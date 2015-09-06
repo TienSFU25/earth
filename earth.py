@@ -97,7 +97,7 @@ def crop(img, y1, y2, x1, x2):
 	return img[y1:y2, x1:x2]
 
 # normalize a picture with rg normalization
-def normalize(filename):
+def normalize(filename, normalize):
 	img = cv2.imread(filename, 1)
 	b, g, r = cv2.split(img)
 	total = np.sum(img, axis=2).astype(np.float64)
@@ -105,7 +105,7 @@ def normalize(filename):
 	r_ = (r.astype(np.float64)/total*255).astype(np.uint8)
 	g_ = (g.astype(np.float64)/total*255).astype(np.uint8)
 
-	if (is_normalize):
+	if (normalize):
 		return r_, g_
 	else:
 		return r, g
@@ -133,16 +133,13 @@ g_discs = []
 average_r = [[], [], []]
 average_g = [[], [], []]
 
-std_r = [[], [], []]
-std_g = [[], [], []]
-
 no_images = end_no - start_no + 1
 for i in range(no_images):
 	current = start_no + i
 	image_path = image_dir + str(current) + '.cr2'
 
 	# rg normalize an image and append the red/green channels to a list
-	r, g = normalize(image_path)
+	r, g = normalize(image_path, is_normalize)
 	r_discs.append(r)
 	g_discs.append(g)
 
@@ -155,10 +152,6 @@ for i in range(no_images):
 		# pixel-wise average of the normalized region for red/green channels
 		average_r[j].append(np.average(curr_red))
 		average_g[j].append(np.average(curr_green))
-
-		# standard deviation of pixels for the normalized region
-		std_r[j].append(curr_red.std())
-		std_g[j].append(curr_green.std())
 
 # append results to lists to display results in an excel file
 std_averages = []
