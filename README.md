@@ -49,3 +49,15 @@ If no arguments are provided, it will assume a hard-coded starting image '1717' 
 For example, running with 'IMG_100.CR2' to 'IMG_120.CR2', with normalization
 
 `python earth.py 100 120 y`
+
+### Running the "simple" prefixed scripts
+
+These are here for demonstration purposes of simple image manipulation:
+
+1. Diff-ing 2 images
+2. Normalizing an image
+3. Cropping an image
+
+To run these scripts, provide the filename (or 2, in case of the diff) as a command line argument, and an optional "y" as the last argument if you want to save the image to a folder "simple_results"
+
+`python simple_diff.py first_image.jpg second_img.jpg y`

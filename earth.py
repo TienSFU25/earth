@@ -110,20 +110,6 @@ def normalize(filename, normalize):
 	else:
 		return r, g
 
-def to_cv_image(filename):
-	img = cv2.imread(filename, 1)
-	b, g, r = cv2.split(img)
-
-	total = np.sum(img, axis=2).astype(np.float64)
-
-	b_ = (b.astype(np.float64)/total*255).astype(np.uint8)
-	g_ = (g.astype(np.float64)/total*255).astype(np.uint8)
-	r_ = (r.astype(np.float64)/total*255).astype(np.uint8)
-
-	img_ = cv2.merge((b_, g_, r_))
-
-	return (img, img_)
-
 print 'Running starting image: {}, end image: {}, normalize: {}'.format(start_no, end_no, is_normalize)
 
 r_discs = []
